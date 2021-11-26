@@ -1,3 +1,5 @@
+## <a href="https://codeclimate.com/github/BC-MAY-21-RN/kata-02-el-juego-de-boliche-k2-n21-t3/maintainability"><img src="https://api.codeclimate.com/v1/badges/088680bda1571518cef0/maintainability" /></a>
+
 ![BrightCoders Logo](img/logo-bc.png)
 
 # Kata El Juego de Boliche
