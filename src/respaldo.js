@@ -66,8 +66,6 @@ module.exports = class Game{
 
     //Metodo Principal
     comenzarJuego(){
-        //Imprimimos la tabla en ceros
-        console.table(this.tablero);
         //Creacion de un for para recorrer los 10 turnos del juego
         for(let i = 0; i < this.turnos; i++){
             //En cada iteracion se realiza el primer tiro
@@ -84,16 +82,16 @@ module.exports = class Game{
             }
             //Realizacion del segundo tiro
             this.segundoTiro(this.tablero[i])
-
-            //Suma de los resultados contando el segundo tiro
-            this.tablero[i].resultado = this.tablero[i].primerTiro + this.tablero[i].segundoTiro;
-            this.resultado += this.tablero[i].resultado;
+            if(i == 9){
+                this.tablero[i].tercerTiro = Math.floor( Math.random()*this.pinos ) + 1;
+            }
 
         }
         //NUEVO METODO...
         //const resultados = actualizarResultados()
         this.actualizarResultados();
         //Impresion de los resultados finales
+       
         
     }
 
@@ -123,13 +121,10 @@ module.exports = class Game{
                 }
             }else{
                 if(this.tablero[i].primerTiro === 10){
-                    this.tablero[i].segundoTiro = Math.floor( Math.random()*this.pinos ) + 1;
-                    this.tablero[i].tercerTiro = Math.floor( Math.random()*this.pinos ) + 1;
-                    
                     this.tablero[i].resultado += this.tablero[i].segundoTiro + this.tablero[i].tercerTiro;
 
                 }else if((this.tablero[i].primerTiro + this.tablero[i].segundoTiro) == 10){
-                    continue;
+                    this.tablero[i].resultado += this.tablero[i].segundoTiro
                 }
             }
             
