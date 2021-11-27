@@ -57,7 +57,7 @@ module.exports = class Game{
             {   //Turno 10
                 primerTiro:0,
                 segundoTiro:0,
-                tercerTiro: 0,
+                tercerTiro: Math.floor( Math.random()*this.pinos ) + 1,
                 resultado:0
             }
         
@@ -66,8 +66,6 @@ module.exports = class Game{
 
     //Metodo Principal
     comenzarJuego(){
-        //Imprimimos la tabla en ceros
-        console.table(this.tablero);
         //Creacion de un for para recorrer los 10 turnos del juego
         for(let i = 0; i < this.turnos; i++){
             //En cada iteracion se realiza el primer tiro
@@ -87,7 +85,6 @@ module.exports = class Game{
 
             //Suma de los resultados contando el segundo tiro
             this.tablero[i].resultado = this.tablero[i].primerTiro + this.tablero[i].segundoTiro;
-            this.resultado += this.tablero[i].resultado;
 
         }
         //NUEVO METODO...
@@ -104,6 +101,12 @@ module.exports = class Game{
                 if(this.tablero[i].primerTiro === 10 ){//verificamos que el primer tiro sea un strike
 
                     this.tablero[i].resultado += this.tablero[i+1].primerTiro;
+
+                    if(this.tablero[i] == 8 && this.tablero[9].primerTiro == 10 && this.tablero[8].primerTiro == 10){
+                        this.tablero[i].resultado += this.tablero[i+1].primerTiro + this.tablero[i+1].segundoTiro;
+
+                        continue;
+                    }
                     //sumamos el primer tiro del siguiente turno
                     if(this.tablero[i+1].primerTiro === 10){ //verificamos que en el siguiente turno su primer tiro sea un strike
                         if(this.tablero[i+2].primerTiro === 10){//verificamos el primer tiro 2do tiro siguiente, que sea strike
@@ -124,7 +127,6 @@ module.exports = class Game{
             }else{
                 if(this.tablero[i].primerTiro === 10){
                     this.tablero[i].segundoTiro = Math.floor( Math.random()*this.pinos ) + 1;
-                    this.tablero[i].tercerTiro = Math.floor( Math.random()*this.pinos ) + 1;
                     
                     this.tablero[i].resultado += this.tablero[i].segundoTiro + this.tablero[i].tercerTiro;
 
@@ -135,7 +137,7 @@ module.exports = class Game{
             
 
 
-
+            this.resultado += this.tablero[i].resultado;
         }//cierre de ciclo
         console.table(this.tablero);//mostramos en la tabla los valores 
         console.log( `La puntuacion total es de: ${(this.resultado + this.tablero[9].tercerTiro)}` );
